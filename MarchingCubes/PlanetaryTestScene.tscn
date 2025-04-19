@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://dejgqllyp56tm"]
+
+[ext_resource type="Texture2D" uid="uid://bswja5cnoow1t" path="res://MarchingCubes/NightSkyHDRI001_12K-TONEMAPPED.jpg" id="1_86dju"]
+[ext_resource type="PackedScene" uid="uid://df7raxy6nnsnd" path="res://MarchingCubes/ProcPlanet.tscn" id="1_qk506"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_krkmb"]
+noise_type = 3
+frequency = 0.0204
+fractal_gain = 0.46
+fractal_weighted_strength = 1.0
+cellular_distance_function = 3
+cellular_return_type = 2
+domain_warp_type = 2
+domain_warp_amplitude = 8.34
+domain_warp_fractal_type = 2
+domain_warp_fractal_octaves = 10
+domain_warp_fractal_lacunarity = 3.835
+domain_warp_fractal_gain = 0.535
+metadata/_preview_in_3d_space_ = true
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_etwcl"]
+panorama = ExtResource("1_86dju")
+
+[sub_resource type="Sky" id="Sky_dpe47"]
+sky_material = SubResource("PanoramaSkyMaterial_etwcl")
+
+[sub_resource type="Environment" id="Environment_mwklx"]
+background_mode = 2
+sky = SubResource("Sky_dpe47")
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_sky_contribution = 0.0
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Node3D" type="Node3D"]
+
+[node name="ProcPlanet" parent="." instance=ExtResource("1_qk506")]
+transform = Transform3D(0.823173, 0.543838, 0.163176, -0.371326, 0.733043, -0.569881, -0.429538, 0.408519, 0.805363, 0, 0, 0)
+Radius = 352
+ChunkScale = 1.0
+noise = SubResource("FastNoiseLite_krkmb")
+NoiseScale = 45.0
+SpinSpeed = 0.1
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_mwklx")
